@@ -172,6 +172,35 @@ public class TestSolvers {
 	}	
 	
 	@Test
+	public void testHelper(SearchWorklist wl, Maze startMaze, String[] expected) {
+		Square s = MazeSolver.solve(startMaze, new StackWorklist());
+		if(expected == null) { assertNull(s); }
+		else {
+			String actualStr = formatMaze(startMaze.showSolution());
+			String expectedStr = formatMaze(expected);
+			assertEquals(expectedStr, actualStr);
+		}
+	}
+	
+	@Test
+	public void testClassExample() {
+		Maze m = new Maze(new String[]{
+				"#_#_",
+				"____",
+				"_##S",
+				"F___"
+			});
+		String[] stackExpected = {
+				"#_#_",
+				"****",
+				"*##S",
+				"F___"
+			};
+		testHelper(new StackWorklist(), m, stackExpected);
+	}
+	
+	
+	@Test
 	public void testStrings() {
 		Maze m = new Maze(new String[]{
 				"____#__S",
