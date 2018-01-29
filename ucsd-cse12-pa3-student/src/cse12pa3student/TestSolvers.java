@@ -114,7 +114,9 @@ public class TestSolvers {
 			};
 		assertEquals(formatMaze(expected), formatMaze(actualAndWrong));
 	}
+	
+	@Test
+	public void myTest(){
+	
+	}
 }
-
-
-
