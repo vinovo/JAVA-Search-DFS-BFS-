@@ -12,8 +12,18 @@ public class TestSolvers {
 
 
 	/* Helper method to compare two mazes */
-	public void checkMaze(SearchWorklist wl, Maze startMaze, String[] expected) {
+	public void checkMaze1(SearchWorklist wl, Maze startMaze, String[] expected) {
 		Square s = MazeSolver.solve(startMaze, new StackWorklist());
+		if(expected == null) { assertNull(s); }
+		else {
+			String actualStr = formatMaze(startMaze.showSolution());
+			String expectedStr = formatMaze(expected);
+			assertEquals(expectedStr, actualStr);
+		}
+	}
+	
+	public void checkMaze2(SearchWorklist wl, Maze startMaze, String[] expected) {
+		Square s = MazeSolver.solve(startMaze, new QueueWorklist());
 		if(expected == null) { assertNull(s); }
 		else {
 			String actualStr = formatMaze(startMaze.showSolution());
@@ -95,10 +105,10 @@ public class TestSolvers {
 				"*##S",
 				"F___"
 			};
-		checkMaze(new StackWorklist(), m, stackExpected);
+		checkMaze1(new StackWorklist(), m, stackExpected);
 	}
 	
-	@Test
+	//@Test
 	public void testFailingOrder() {
 		String[] expected = {
 				"#_#_",
@@ -116,7 +126,19 @@ public class TestSolvers {
 	}
 	
 	@Test
-	public void myTest(){
-	
+	public void testQueue(){
+		Maze m = new Maze(new String[]{
+				"#_#_",
+				"____",
+				"_##S",
+				"F___"
+			});
+		String[] queueExpected = {
+				"#_#_",
+				"____",
+				"_##S",
+				"F***"
+			};
+		checkMaze2(new QueueWorklist(), m, queueExpected);
 	}
 }

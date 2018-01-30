@@ -4,7 +4,7 @@
 								   ##F#"
 'S', SetPrevious would be called twice.
 
-2. The statement is false. In the case "#_#_ , StackWorklist produce a path of shorter length
+2. The statement is false. In the case "#### , StackWorklist produce a path of shorter length
 										F___
 										_##S
 										____"
