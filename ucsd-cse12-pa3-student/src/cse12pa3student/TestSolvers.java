@@ -126,7 +126,7 @@ public class TestSolvers {
 	}
 	
 	@Test
-	public void testQueue(){
+	public void diffOrder(){
 		Maze m = new Maze(new String[]{
 				"#_#_",
 				"____",
@@ -140,5 +140,103 @@ public class TestSolvers {
 				"F***"
 			};
 		checkMaze2(new QueueWorklist(), m, queueExpected);
+	}
+	
+	@Test
+	public void size1(){
+		Maze m = new Maze(new String[]{
+				"S"
+			});
+		checkMaze2(new QueueWorklist(), m, null);
+	}
+	
+	@Test
+	public void stopEarly(){
+		Maze m = new Maze(new String[]{
+				"####",
+				"####",
+				"##FS",
+				"####"
+			});
+		String[] Expected = {
+				"####",
+				"####",
+				"##FS",
+				"####"
+			};
+		checkMaze1(new StackWorklist(), m, Expected);
+	}
+	
+	@Test
+	public void stopEarly2(){
+		Maze m = new Maze(new String[]{
+				"####",
+				"####",
+				"#F_S",
+				"####"
+			});
+		String[] Expected = {
+				"####",
+				"####",
+				"#F*S",
+				"####"
+			};
+		checkMaze1(new StackWorklist(), m, Expected);
+	}
+	
+	@Test
+	public void wall(){
+		Maze m = new Maze(new String[]{
+				"###_",
+				"__#_",
+				"_F#S",
+				"__#_"
+			});
+		checkMaze1(new StackWorklist(), m, null);
+	}
+	
+	@Test
+	public void diagonalMove1(){
+		Maze m = new Maze(new String[]{
+				"S###",
+				"#_##",
+				"##_#",
+				"###F"
+		});
+		checkMaze1(new StackWorklist(), m, null);	
+	}
+	
+	@Test
+	public void noWall1(){
+		Maze m = new Maze(new String[]{
+				"S___",
+				"____",
+				"____",
+				"___F"
+		});
+		String[] Expected = {
+				"S**_",
+				"***_",
+				"***_",
+				"***F"
+			};
+		checkMaze1(new StackWorklist(), m, Expected);	
+	}
+	
+	@Test
+	public void diagonalMove2(){
+		Maze m = new Maze(new String[]{
+				"S_##",
+				"___#",
+				"#___",
+				"##_F"
+		});
+		String[] Expected = {
+				"S_##",
+				"**_#",
+				"#**_",
+				"##*F"
+			};
+		checkMaze1(new StackWorklist(), m, Expected);	
 	}
 }
